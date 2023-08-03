@@ -1,14 +1,21 @@
+import { QueryClient } from '@tanstack/react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import NewUsers from './pages/Users';
-import Cabins from './pages/Cabins';
-import Settings from './pages/Settings';
 import Account from './pages/Account';
+import Bookings from './pages/Bookings';
+import Cabins from './pages/Cabins';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
-import Bookings from './pages/Bookings';
+import Settings from './pages/Settings';
+import NewUsers from './pages/Users';
 import GlobalStyle from './styles/GlobalStyles';
 import AppLayout from './ui/AppLayout';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    staleTime: 60 * 1000,
+  },
+});
 
 const App = () => {
   return (
