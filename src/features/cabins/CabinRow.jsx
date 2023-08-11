@@ -61,6 +61,7 @@ const CabinRow = ({ cabin }) => {
 
   const { isDeleting, deleteCabin } = useDeleteCabins();
   const { isCreating, createCabin } = useCreateCabin();
+
   function handleDupplicate() {
     createCabin({
       name: `Copy of ${name} `,
