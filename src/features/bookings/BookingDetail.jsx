@@ -14,6 +14,9 @@ import Spinner from '../../ui/Spinner';
 import { HiArrowDownOnSquare, HiArrowUpOnSquare } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import { useCheckout } from '../check-in-out/useChekout';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
+import { useDeleteBooking } from './useDeleteBooking';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -28,6 +31,7 @@ function BookingDetail() {
   const navigate = useNavigate();
 
   const { checkout, isCheckingOut } = useCheckout();
+  const { isDeleting, deleteBooking } = useDeleteBooking();
 
   if (isLoading) return <Spinner />;
 
@@ -70,6 +74,23 @@ function BookingDetail() {
             Check Out
           </Button>
         )}
+
+        <Modal>
+          <Modal.Open opens="delete">
+            <Button variation="danger">Delete</Button>
+          </Modal.Open>
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resourceName="booking"
+              onConfirm={() =>
+                deleteBooking(bookingId, {
+                  onSettled: () => navigate(-1),
+                })
+              }
+              disabled={isDeleting}
+            />
+          </Modal.Window>
+        </Modal>
 
         <Button
           variation="secondary"
