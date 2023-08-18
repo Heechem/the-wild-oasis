@@ -4,11 +4,11 @@ import { useSearchParams } from 'react-router-dom';
 import { getStaysAfterDate } from '../../services/apiBookings';
 
 export function useRecentStays() {
-  const [serachParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const numDays = !serachParams.get('last')
+  const numDays = !searchParams.get('last')
     ? 7
-    : Number(serachParams.get('last'));
+    : Number(searchParams.get('last'));
 
   const queryDate = subDays(new Date(), numDays).toISOString();
 
@@ -20,5 +20,5 @@ export function useRecentStays() {
   const confirmedStays = stays?.filter(
     (stay) => stay.status === 'checked-in' || stay.status === 'checked-out'
   );
-  return { isLoading, stays, confirmedStays };
+  return { isLoading, stays, confirmedStays, numDays };
 }
