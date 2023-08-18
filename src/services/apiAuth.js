@@ -13,7 +13,7 @@ export async function signup({ fullName, email, password }) {
   });
 
   if (error) throw new Error(error.message);
-  console.log(data);
+
   return data;
 }
 
@@ -23,7 +23,7 @@ export async function login({ email, password }) {
     password,
   });
   if (error) throw new Error(error.message);
-  console.log(data);
+
   return data;
 }
 
@@ -35,7 +35,6 @@ export async function getCurrentUser() {
   const { data: session } = await supabase.auth.getSession();
   if (!session.session) return null;
   const { data, error } = await supabase.auth.getUser();
-  console.log(data);
 
   if (error) throw new Error(error.message);
 
@@ -71,11 +70,12 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
 
   //3. update the avatar image in the profile
 
-  const { data: updatedUser, error: errorFile } = supabase.auth.updateUser({
-    data: {
-      avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
-    },
-  });
+  const { data: updatedUser, error: errorFile } =
+    await supabase.auth.updateUser({
+      data: {
+        avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
+      },
+    });
 
   if (errorFile) throw new Error(errorFile.message);
   return updatedUser;
