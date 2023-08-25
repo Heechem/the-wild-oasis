@@ -1,6 +1,6 @@
 # The-wild-oasis
 
-https://wildeoasis.netlify.app/login
+https://wildeoasis.netlify.app
 
 The first **CRUD** application that I am creating
 A full stack Application using : 
